@@ -4,20 +4,27 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Add Template
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-text> <h5>New Template</h5></ion-text>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
+    <ion-item>
+      <ion-label position="stacked">Template Title</ion-label>
+      <ion-input [(ngModel)]="templateTitle">
+      </ion-input>
     </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Content</ion-label>
+        <ion-textarea
+        [(ngModel)]="templateContent">
+      </ion-textarea>
+    </ion-item>
+
+    <ion-button (click)=saveNewTemplate($event) expand="full">Save</ion-button>
   </ion-list>
   <!--
     <div *ngIf="selectedItem" padding>

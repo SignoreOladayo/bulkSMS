@@ -16,7 +16,7 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
+      title: 'Add Templates',
       url: '/list',
       icon: 'list'
     }

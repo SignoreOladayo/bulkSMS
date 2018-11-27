@@ -4,13 +4,45 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      Zen Blaster
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the
-    <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
-</ion-content>
+
+  <ion-content padding>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Excel Path</ion-label>
+            <ion-input [(ngModel)]="excelPath"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-button (click)=openFileManager($event) expand="full">Browse</ion-button>
+
+        <ion-list>
+            <ion-item>
+              <ion-label>Include Name</ion-label>
+              <ion-checkbox [(ngModel)]="includeName" (ionChange)="updateIncludeName()" checked="false"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+
+        <ion-list>
+            <ion-item>
+                <ion-label>Template</ion-label>
+                <ion-select placeholder="Select One">
+                  <ion-select-option>Hi</ion-select-option>
+                  <ion-select-option>Hello</ion-select-option>
+                </ion-select>
+              </ion-item>
+        </ion-list>
+        
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Message</ion-label>
+            <ion-textarea [(ngModel)]="message" rows = 6></ion-textarea>
+          </ion-item>
+        </ion-list>
+
+        <ion-button (click)=send($event) expand="full">Send</ion-button>
+  </ion-content>
+

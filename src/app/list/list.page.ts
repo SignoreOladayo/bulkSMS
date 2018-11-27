@@ -1,39 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
   styleUrls: ['list.page.scss']
 })
-export class ListPage implements OnInit {
+export class ListPage {
   private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  
+  constructor(private storage: Storage, private toastController: ToastController) {
+
   }
 
-  ngOnInit() {
+  templateTitle:''
+  templateContent:''
+  templates
+
+  async presentToastWithOptions() {
+    const toast = await this.toastController.create({
+      message: 'Template Saved!',
+      showCloseButton: true,
+      position: 'bottom',
+      closeButtonText: 'Done'
+    });
+    toast.present();
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+
+  saveNewTemplate(){
+    
+    //get the current template state.
+    this.storage.get('Templates')
+        .then((storedTemplates) => {
+          // let templateObj = JSON.parse(storedTemplates)
+          // this.templates = templateObj
+          // this.templates.templateTitle = this.templateContent
+          // JSON.stringify(this.templates)
+
+         if (storedTemplates == null) {
+          let title = this.templateTitle
+
+          let templatesContainer = []
+          
+          let preparedTemplates = {}
+
+          preparedTemplates['Title'] = this.templateTitle
+          preparedTemplates['Content'] = this.templateContent
+
+          templatesContainer.push(preparedTemplates)
+          
+            // save template back
+          this.storage.set('Templates', JSON.stringify(templatesContainer))
+              .then((result) => {
+                  this.presentToastWithOptions()
+                  this.templateContent = ''
+                  this.templateTitle = ''
+              })
+          } else {
+            //there are already pre existing templates
+            //get them, then add a new one.
+            let existingTemplates = JSON.parse(storedTemplates)
+            // console.log(existingTemplates)
+
+            let preparedTemplates = {}
+
+           preparedTemplates['Title'] = this.templateTitle
+           preparedTemplates['Content'] = this.templateContent
+
+            existingTemplates.push(preparedTemplates)
+
+            this.storage.set('Templates', JSON.stringify(existingTemplates))
+              .then((result) => {
+                console.log(result)
+                  this.presentToastWithOptions()
+                  this.templateContent = ''
+                  this.templateTitle = ''
+              })
+
+          }
+        })
+  }
 }
