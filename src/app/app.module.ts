@@ -25,7 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
     PapaParseModule,
     IonicStorageModule.forRoot({
       name: '__smsBlasterDB',
-      driverOrder: ['indexeddb']
+      driverOrder: ['sqlite']
     })
   ],
   providers: [

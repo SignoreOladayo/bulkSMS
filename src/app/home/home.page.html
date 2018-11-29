@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Zen Blaster
+      SMS Blaster
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
             <ion-input [(ngModel)]="excelPath"></ion-input>
           </ion-item>
         </ion-list>
-        <ion-button (click)=openFileManager($event) expand="full">Browse</ion-button>
+        <ion-button (click)=openFileManager() expand="full">Browse</ion-button>
 
         <ion-list>
             <ion-item>
@@ -29,9 +29,8 @@
         <ion-list>
             <ion-item>
                 <ion-label>Template</ion-label>
-                <ion-select placeholder="Select One">
-                  <ion-select-option>Hi</ion-select-option>
-                  <ion-select-option>Hello</ion-select-option>
+                <ion-select placeholder="Select One" (ionChange) ="changeTemplate($event)">
+                  <ion-select-option *ngFor = "let template of templates" value = "{{template.Title}}">{{template.Title}}</ion-select-option>
                 </ion-select>
               </ion-item>
         </ion-list>
@@ -43,6 +42,6 @@
           </ion-item>
         </ion-list>
 
-        <ion-button (click)=send($event) expand="full">Send</ion-button>
+        <ion-button (click)=send() expand="full">Send</ion-button>
   </ion-content>
 
