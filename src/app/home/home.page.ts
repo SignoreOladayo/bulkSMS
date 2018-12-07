@@ -167,10 +167,18 @@ export class HomePage implements OnInit {
     this.readCsvFile()
   }
 
+  convertContentPath(uri) {
+    this.filePath.resolveNativePath(uri)
+        .then((filePath) => {
+          this.setExcelPath(filePath)
+        })
+        .catch(err => console.log(err));
+  }
+
   openFileManager() {
     this.fileChooser.open()
         .then(uri => {
-          this.setExcelPath(uri)
+          this.convertContentPath(uri)
         })
         .catch(e => console.log(e));
   }
