@@ -87,5 +87,6 @@
     <allow-navigation href="http://192.168.137.1:8100" sessionid="bfee6ab7" />
     <allow-navigation href="http://192.168.8.101:8100" sessionid="fe14853e" />
     <plugin name="cordova-plugin-filepath" spec="1.4.2" />
+    <allow-navigation href="http://192.168.1.107:8100" sessionid="36df37c6" />
     <engine name="android" spec="7.1.4" />
 </widget>
